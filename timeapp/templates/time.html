@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Current Time</title>
+</head>
+<body>
+    <h1>Current Time: <span id="time"></span></h1>
+
+<!--    <script>-->
+<!--        const timeElement = document.getElementById('time');-->
+<!--        const socket = new WebSocket('ws://' + window.location.host + '/ws/time/');-->
+
+<!--        socket.onmessage = function(event) {-->
+<!--            const data = JSON.parse(event.data);-->
+<!--            timeElement.textContent = data.time;-->
+<!--        };-->
+<!--    </script>-->
+<script>
+        // 현재 시간을 갱신하는 함수
+        function updateTime() {
+            var now = new Date();  // 현재 시간 가져오기
+            var hours = String(now.getHours()).padStart(2, '0');
+            var minutes = String(now.getMinutes()).padStart(2, '0');
+            var seconds = String(now.getSeconds()).padStart(2, '0');
+
+            // 시간을 원하는 형식으로 포맷팅
+            var formattedTime = now.getFullYear() + '-' +
+                                String(now.getMonth() + 1).padStart(2, '0') + '-' +
+                                String(now.getDate()).padStart(2, '0') + ' ' +
+                                hours + ':' + minutes + ':' + seconds;
+
+            // HTML 요소에 시간 업데이트
+            document.getElementById("time").innerText = formattedTime;
+        }
+
+        // 페이지가 로드되면 함수를 호출하고, 1초마다 업데이트
+        window.onload = function() {
+            updateTime();  // 페이지가 처음 로드될 때 시간 표시
+            setInterval(updateTime, 1000);  // 1초마다 updateTime 함수 호출
+        }
+    </script>
+</body>
+</html>
